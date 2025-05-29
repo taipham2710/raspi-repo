@@ -30,13 +30,13 @@ jobs:
           ${{ secrets.DOCKER_USERNAME }}/raspi-system:latest
           ${{ secrets.DOCKER_USERNAME }}/raspi-system:${{ github.sha }}
     
-    - name: Deploy to edge server
-      if: github.ref == 'refs/heads/main'
-      run: |
-        ssh -i ${{ secrets.EDGE_SSH_KEY }} -o StrictHostKeyChecking=no \
-          ${{ secrets.EDGE_USER }}@${{ secrets.EDGE_HOST }} \
-          "docker pull ${{ secrets.DOCKER_USERNAME }}/raspi-system:latest && \
-           docker stop raspi-system || true && \
-           docker rm raspi-system || true && \
-           docker run -d --name raspi-system --restart unless-stopped \
-           ${{ secrets.DOCKER_USERNAME }}/raspi-system:latest" 
+    # - name: Deploy to edge server
+    #   if: github.ref == 'refs/heads/main'
+    #   run: |
+    #     ssh -i ${{ secrets.EDGE_SSH_KEY }} -o StrictHostKeyChecking=no \
+    #       ${{ secrets.EDGE_USER }}@${{ secrets.EDGE_HOST }} \
+    #       "docker pull ${{ secrets.DOCKER_USERNAME }}/raspi-system:latest && \
+    #        docker stop raspi-system || true && \
+    #        docker rm raspi-system || true && \
+    #        docker run -d --name raspi-system --restart unless-stopped \
+    #        ${{ secrets.DOCKER_USERNAME }}/raspi-system:latest" 
